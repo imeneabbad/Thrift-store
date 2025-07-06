@@ -19,102 +19,12 @@ import {
   Sell,
   LocalOffer,
   StarOutline,
-  ForestOutlined,
   FavoriteBorder,
   ArrowBackIos,
   ArrowForwardIos,
 } from "@mui/icons-material";
 import Carousel from "./Carousel";
-
-// Mock image data with fallbacks
-const imageCards = [
-  {
-    src: "/images/item1.jpg",
-    alt: "Vintage leather jacket",
-    price: "$45",
-    title: "Leather Jacket",
-    fallback:
-      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDM2MCAzMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNjAiIGhlaWdodD0iMzIwIiBmaWxsPSIjZjVmNWY1Ii8+CjxwYXRoIGQ9Ik0xMzUgMTMwSDIyNVYxOTBIMTM1VjEzMFoiIGZpbGw9IiNlMGUwZTAiLz4KPHBhdGggZD0iTTE2NSAxNTBIMTk1VjE3MEgxNjVWMTUwWiIgZmlsbD0iI2QwZDBkMCIvPgo8L3N2Zz4K",
-  },
-  {
-    src: "/images/item2.jpg",
-    alt: "Vintage denim shirt",
-    price: "$28",
-    title: "Denim Shirt",
-    fallback:
-      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDM2MCAzMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNjAiIGhlaWdodD0iMzIwIiBmaWxsPSIjZjBmOGZmIi8+CjxwYXRoIGQ9Ik0xMzUgMTMwSDIyNVYxOTBIMTM1VjEzMFoiIGZpbGw9IiNkZGVlZmYiLz4KPHBhdGggZD0iTTE2NSAxNTBIMTk1VjE3MEgxNjVWMTUwWiIgZmlsbD0iI2NjZGRmZiIvPgo8L3N2Zz4K",
-  },
-  {
-    src: "/images/item3.jpg",
-    alt: "Retro sneakers",
-    price: "$65",
-    title: "Retro Sneakers",
-    fallback:
-      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDM2MCAzMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNjAiIGhlaWdodD0iMzIwIiBmaWxsPSIjZmZmOGYwIi8+CjxwYXRoIGQ9Ik0xMzUgMTMwSDIyNVYxOTBIMTM1VjEzMFoiIGZpbGw9IiNmZmVlZGQiLz4KPHBhdGggZD0iTTE2NSAxNTBIMTk1VjE3MEgxNjVWMTUwWiIgZmlsbD0iI2ZmZGRjYyIvPgo8L3N2Zz4K",
-  },
-  {
-    src: "/images/item4.jpg",
-    alt: "Wool sweater",
-    price: "$38",
-    title: "Wool Sweater",
-    fallback:
-      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDM2MCAzMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNjAiIGhlaWdodD0iMzIwIiBmaWxsPSIjZjhmNWZmIi8+CjxwYXRoIGQ9Ik0xMzUgMTMwSDIyNVYxOTBIMTM1VjEzMFoiIGZpbGw9IiNmMGVlZmYiLz4KPHBhdGggZD0iTTE2NSAxNTBIMTk1VjE3MEgxNjVWMTUwWiIgZmlsbD0iI2UwZGRmZiIvPgo8L3N2Zz4K",
-  },
-];
-const products=[
-  {
-    id: "1",
-    image: "/images/jacket-vintage.jpg",
-    fallbackImage: "/images/fallback-jacket.jpg",
-    alt: "Vintage Denim Jacket",
-    title: "Vintage Denim Jacket",
-    price: "$45.00",
-    originalPrice: "$65.00",
-    rating: 4.8,
-    reviewCount: 86,
-    isNew: false,
-    isSale: true,
-  },
-  {
-    id: "2",
-    image: "/images/sneakers-white.webp",
-    fallbackImage: "/images/fallback-sneakers.jpg",
-    alt: "Retro White Sneakers",
-    title: "Retro White Sneakers",
-    price: "$60.00",
-    originalPrice: "$90.00",
-    rating: 4.6,
-    reviewCount: 112,
-    isNew: true,
-    isSale: true,
-  },
-  {
-    id: "3",
-    image: "/images/handbag-leather.webp",
-    fallbackImage: "/images/fallback-handbag.jpg",
-    alt: "Brown Leather Handbag",
-    title: "Genuine Leather Handbag",
-    price: "$80.00",
-    originalPrice: "$110.00",
-    rating: 4.9,
-    reviewCount: 145,
-    isNew: true,
-    isSale: false,
-  },
-  {
-    id: "4",
-    image: "/images/flannel-shirt.jpg",
-    fallbackImage: "/images/fallback-flannel.jpg",
-    alt: "Plaid Flannel Shirt",
-    title: "Plaid Flannel Shirt",
-    price: "$25.00",
-    originalPrice: "$35.00",
-    rating: 4.4,
-    reviewCount: 72,
-    isNew: false,
-    isSale: true,
-  }
-]
+import { products } from "@/constants/heroCards";
 
 const Hero = () => {
   const theme = useTheme();
@@ -149,7 +59,6 @@ const Hero = () => {
       behavior: "smooth",
     });
 
-    // Update button states after scroll animation
     setTimeout(updateScrollButtons, 300);
   };
 
@@ -168,154 +77,242 @@ const Hero = () => {
   return (
     <Box
       sx={{
-        py: { xs: 6, md: 8 },
+        py: { xs: 8, md: 12 },
         px: 2,
-        bgcolor: "#f6fdf9",
-        minHeight: "70vh",
+        background: "linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%)",
+        minHeight: "75vh",
+        width: "100vw",
         display: "flex",
         alignItems: "center",
+        position: "relative",
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background:
+            "radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.03) 0%, transparent 50%)",
+          pointerEvents: "none",
+        },
       }}
     >
-      <Container maxWidth="lg">
+      <Box sx={{ width: "100vw", marginLeft: "calc(-50vw + 50%)" }}>
         <Stack
           direction={{ xs: "column", lg: "row" }}
-          spacing={{ xs: 4, md: 6 }}
+          spacing={{ xs: 6, md: 8 }}
           alignItems="center"
           justifyContent="space-between"
+          width="100%"
         >
-          {/* Left Content */}
-          <Box flex={1} sx={{ maxWidth: { xs: "100%", lg: "50%" } }}>
-            <Chip
-              icon={<ForestOutlined />}
-              label="Sustainable Fashion"
+          {/* Left Content - Takes 2/3 of space */}
+          <Box
+            sx={{
+              width: { xs: "100%", lg: "66%" },
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center", // This centers child elements horizontally
+              justifyContent: "center", // This centers vertically if needed
+              mx: "auto", // Centers the box itself within its parent
+              maxWidth: { lg: "calc(66% - 32px)" },
+            }}
+          >
+            <Box
               sx={{
-                bgcolor: alpha(theme.palette.success.main, 0.1),
-                color: "success.main",
-                mb: 3,
-                fontWeight: 600,
-                fontSize: "0.875rem",
-                border: `1px solid ${alpha(theme.palette.success.main, 0.2)}`,
-              }}
-            />
-
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: "2.5rem", sm: "3rem", md: "3.5rem" },
-                fontWeight: 800,
-                lineHeight: 1.1,
-                mb: 3,
-                background: `linear-gradient(135deg, ${theme.palette.text.primary} 0%, ${theme.palette.success.main} 100%)`,
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                width: "100%",
+                maxWidth: "640px",
+                textAlign: { xs: "center", lg: "left" },
+                px: { xs: 2, md: 0 }, // Remove horizontal padding on desktop
               }}
             >
-              Find your next favorite piece
-            </Typography>
-
-            <Typography
-              variant="body1"
-              sx={{
-                mb: 4,
-                maxWidth: "500px",
-                fontSize: "1.125rem",
-                lineHeight: 1.6,
-                color: "text.secondary",
-              }}
-            >
-              Stylish, sustainable, second-hand. Discover quality items at
-              affordable prices while helping the planet.
-            </Typography>
-
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={2}
-              mb={4}
-              sx={{ alignItems: { xs: "stretch", sm: "center" } }}
-            >
-              <Button
-                variant="contained"
-                startIcon={<ShoppingBag />}
-                size="large"
+              {/* Modern Badge with subtle animation */}
+              <Box
+                component="span"
                 sx={{
-                  bgcolor: "success.main",
-                  textTransform: "none",
+                  display: "inline-block",
+                  bgcolor: "rgba(17, 17, 17, 0.03)",
+                  color: "text.primary",
+                  mb: 4,
                   fontWeight: 600,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: "1rem",
-                  borderRadius: 2,
+                  fontSize: "0.8rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  border: "1px solid rgba(17, 17, 17, 0.08)",
+                  borderRadius: "12px",
+                  px: 2.5,
+                  py: 1,
+                  backdropFilter: "blur(4px)",
+                  transform: "translateY(0)",
+                  transition: "all 0.3s ease",
                   "&:hover": {
-                    bgcolor: "success.dark",
-                    transform: "translateY(-1px)",
-                    boxShadow: theme.shadows[4],
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
                   },
-                  transition: "all 0.2s ease-in-out",
                 }}
               >
-                Shop Now
-              </Button>
+                Premium Marketplace
+              </Box>
 
-              <Button
-                variant="outlined"
-                startIcon={<Sell />}
-                size="large"
-                sx={{
-                  borderColor: "success.main",
-                  color: "success.main",
-                  textTransform: "none",
-                  fontWeight: 600,
-                  px: 4,
-                  py: 1.5,
-                  fontSize: "1rem",
-                  borderRadius: 2,
-                  borderWidth: 2,
-                  "&:hover": {
-                    bgcolor: alpha(theme.palette.success.main, 0.1),
-                    borderColor: "success.dark",
-                    borderWidth: 2,
-                    transform: "translateY(-1px)",
-                  },
-                  transition: "all 0.2s ease-in-out",
-                }}
-              >
-                Sell Items
-              </Button>
-            </Stack>
-
-            <Stack direction="row" alignItems="center" spacing={1}>
-              {[...Array(5)].map((_, i) => (
-                <StarOutline
-                  key={i}
-                  sx={{
-                    color: "warning.main",
-                    fontSize: "1.3rem",
-                    filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.1))",
-                  }}
-                />
-              ))}
+              {/* Headline with improved gradient and motion */}
               <Typography
-                variant="body2"
+                variant="h1"
                 sx={{
-                  color: "text.secondary",
-                  fontWeight: 500,
-                  ml: 1,
+                  fontSize: {
+                    xs: "2.8rem",
+                    sm: "3.75rem",
+                    md: "4.5rem", // Slightly larger
+                  },
+                  fontWeight: 800, // Bolder weight
+                  lineHeight: 1.05, // Tighter leading
+                  mb: 3,
+                  color: "text.primary",
+                  letterSpacing: "-0.03em", // Slightly tighter
+                  fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif', // Trendier font stack
+                  "& span": {
+                    display: "block",
+                    background:
+                      "linear-gradient(135deg, #6e8efb 0%, #a777e3 100%)", // More vibrant gradient
+                    backgroundClip: "text",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    position: "relative",
+                    "&::after": {
+                      content: '""',
+                      position: "absolute",
+                      bottom: -8,
+                      left: 0,
+                      width: "100%",
+                      height: "3px",
+                      background:
+                        "linear-gradient(90deg, #6e8efb 0%, #a777e3 100%)",
+                      transform: "scaleX(0)",
+                      transformOrigin: "left",
+                      transition:
+                        "transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+                    },
+                  },
+                  "&:hover span::after": {
+                    transform: "scaleX(1)",
+                  },
                 }}
               >
-                4.9/5 rating from 10k+ users
+                Find your next
+                <Box component="span">favorite piece</Box>
               </Typography>
-            </Stack>
+
+              {/* Subhead with improved readability */}
+              <Typography
+                variant="body1"
+                sx={{
+                  mb: 5,
+                  maxWidth: "520px", // Slightly wider
+                  fontSize: "1.15rem",
+                  lineHeight: 1.75,
+                  color: "text.secondary",
+                  fontWeight: 400,
+                  letterSpacing: "0.01em",
+                  mx: { xs: "auto", lg: 0 },
+                  opacity: 0.9, // Subtle transparency
+                }}
+              >
+                Discover curated pre-loved fashion that doesn't compromise on
+                style or quality.
+                <Box
+                  component="span"
+                  sx={{
+                    display: { xs: "none", sm: "inline" },
+                    fontWeight: 500,
+                    color: "text.primary",
+                  }}
+                >
+                  Sustainable shopping made simple.
+                </Box>
+              </Typography>
+
+              {/* Buttons with modern interactions */}
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={3}
+                mb={6}
+                sx={{
+                  alignItems: { xs: "stretch", sm: "center" },
+                  justifyContent: { xs: "center", lg: "flex-start" },
+                }}
+              >
+                <Button
+                  variant="contained"
+                  startIcon={
+                    <ShoppingBag sx={{ fontSize: "1.1rem !important" }} />
+                  }
+                  size="large"
+                  sx={{
+                    background:
+                      "linear-gradient(135deg, #6e8efb 0%, #a777e3 100%)",
+                    textTransform: "none",
+                    fontWeight: 600,
+                    px: 5,
+                    py: 1.8,
+                    fontSize: "1rem",
+                    borderRadius: "14px", // More rounded
+                    boxShadow: "0 4px 20px rgba(110, 142, 251, 0.3)",
+                    "&:hover": {
+                      transform: "translateY(-2px)",
+                      boxShadow: "0 8px 30px rgba(110, 142, 251, 0.4)",
+                      background:
+                        "linear-gradient(135deg, #5d7de8 0%, #9668d8 100%)",
+                    },
+                    transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  }}
+                >
+                  Start Shopping
+                </Button>
+
+                <Button
+                  variant="outlined"
+                  startIcon={<Sell sx={{ fontSize: "1.1rem !important" }} />}
+                  size="large"
+                  sx={{
+                    borderColor: "divider",
+                    color: "text.primary",
+                    textTransform: "none",
+                    fontWeight: 500,
+                    px: 5,
+                    py: 1.8,
+                    fontSize: "1rem",
+                    borderRadius: "14px",
+                    borderWidth: "2px",
+                    "&:hover": {
+                      bgcolor: "action.hover",
+                      borderColor: "text.secondary",
+                      transform: "translateY(-2px)",
+                    },
+                    transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  }}
+                >
+                  Sell Items
+                </Button>
+              </Stack>
+            </Box>
           </Box>
 
-          {/* Right Carousel */}
-          <Carousel
-            products={products}
-            cardWidth={{ xs: "260px", sm: "280px", md: "300px" }}
-            cardHeight={440}
-          />
+          {/* Right Carousel - Takes 1/3 of space */}
+          <Box
+            sx={{
+              justifyItems: "end",
+              height:"100%",
+              width: { xs: "100%", lg: "33%" },
+              maxWidth: { lg: "calc(33% - 32px)" }, // Account for spacing
+            }}
+          >
+            <Carousel
+              products={products}
+              cardWidth={{ xs: "260px", sm: "280px", md: "300px" }}
+              cardHeight={440}
+            />
+          </Box>
         </Stack>
-      </Container>
+      </Box>
     </Box>
   );
 };

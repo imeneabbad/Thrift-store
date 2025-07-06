@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100">
+    <div className="w-full min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100">
       <Navbar/>
       <Hero/>
       <Features/>
