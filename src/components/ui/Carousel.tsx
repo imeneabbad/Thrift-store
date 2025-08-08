@@ -108,7 +108,7 @@ const Carousel: React.FC<CarouselProps> = ({
       position: "relative",
       width: "100%",
       maxWidth: "800px",
-      overflow: "hidden",
+      overflow: "visible",
     }}>
       {/* Card Container */}
       <CardContainer 

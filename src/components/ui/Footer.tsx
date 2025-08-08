@@ -3,48 +3,106 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="px-6 py-12 bg-gray-900 text-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Thrift Store</h3>
-              <p className="text-gray-400">
-                Your destination for sustainable shopping and unique finds.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Shop</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/shop" className="hover:text-white">All Items</Link></li>
-                <li><Link href="/shop/clothing" className="hover:text-white">Clothing</Link></li>
-                <li><Link href="/shop/furniture" className="hover:text-white">Furniture</Link></li>
-                <li><Link href="/shop/books" className="hover:text-white">Books</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Account</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/login" className="hover:text-white">Sign In</Link></li>
-                <li><Link href="/register" className="hover:text-white">Register</Link></li>
-                <li><Link href="/profile" className="hover:text-white">My Profile</Link></li>
-                <li><Link href="/orders" className="hover:text-white">My Orders</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="/help" className="hover:text-white">Help Center</Link></li>
-                <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
-                <li><Link href="/shipping" className="hover:text-white">Shipping Info</Link></li>
-                <li><Link href="/returns" className="hover:text-white">Returns</Link></li>
-              </ul>
+    <footer className="px-6 py-16 bg-gray-900 text-gray-300 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-4 gap-12">
+          {/* Brand Column */}
+          <div className="space-y-5">
+            <h3 className="text-xl font-light tracking-tight text-white">ThriftStore</h3>
+            <p className="text-gray-400 leading-relaxed font-light">
+              Curated excellence for the discerning individual who values quality and conscious consumption.
+            </p>
+            <div className="flex space-x-4">
+              {/* Social icons would go here */}
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Thrift Store. All rights reserved.</p>
+
+          {/* Shop Links */}
+          <div>
+            <h4 className="text-xs font-normal tracking-widest text-gray-400 uppercase mb-6 opacity-90">Collections</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'All Items', href: '/shop' },
+                { name: 'Apparel', href: '/shop/clothing' },
+                { name: 'Furnishings', href: '/shop/furniture' },
+                { name: 'Literature', href: '/shop/books' },
+                { name: 'Devices', href: '/shop/electronics' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link 
+                    href={item.href} 
+                    className="text-gray-400 hover:text-white transition-colors duration-300 font-light tracking-wide"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Account Links */}
+          <div>
+            <h4 className="text-xs font-normal tracking-widest text-gray-400 uppercase mb-6 opacity-90">Account</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'Sign In', href: '/login' },
+                { name: 'Register', href: '/register' },
+                { name: 'Profile', href: '/profile' },
+                { name: 'Orders', href: '/orders' },
+                { name: 'Wishlist', href: '/wishlist' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link 
+                    href={item.href} 
+                    className="text-gray-500 hover:text-white transition-colors duration-300 font-light tracking-wide"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Support Links */}
+          <div>
+            <h4 className="text-xs font-normal tracking-widest text-gray-400 uppercase mb-6 opacity-90">Support</h4>
+            <ul className="space-y-4">
+              {[
+                { name: 'Help Center', href: '/help' },
+                { name: 'Contact', href: '/contact' },
+                { name: 'Shipping', href: '/shipping' },
+                { name: 'Returns', href: '/returns' },
+                { name: 'Sustainability', href: '/sustainability' },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link 
+                    href={item.href} 
+                    className="text-gray-500 hover:text-white transition-colors duration-300 font-light tracking-wide"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </footer>
+
+        {/* Copyright Section */}
+        <div className="border-t border-gray-800 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-xs font-light tracking-wide">
+            &copy; {new Date().getFullYear()} ThriftStore. All rights reserved.
+          </p>
+          <div className="flex space-x-8 mt-4 md:mt-0">
+            <Link href="/privacy" className="text-gray-500 hover:text-gray-300 text-xs font-light tracking-wide transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-gray-500 hover:text-gray-300 text-xs font-light tracking-wide transition-colors">
+              Terms of Service
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }
 

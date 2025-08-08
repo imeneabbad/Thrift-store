@@ -1,24 +1,24 @@
-'use client'
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { FiShoppingBag, FiMenu, FiX } from 'react-icons/fi';
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { FiShoppingBag, FiMenu, FiX } from "react-icons/fi";
 
-const Navbar = () => {
+const Navbar = ({ showLoginButton = false }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Features', href: '#features' },
-    { name: 'Categories', href: '#categories' },
-    { name: 'Contact', href: '#contact' },
+    { name: "Features", href: "#features" },
+    { name: "Categories", href: "#categories" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
     <header className="bg-white/90 backdrop-blur-sm sticky top-0 z-50 border-b border-gray-100">
       <nav className="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
-        {/* Logo - Minimalist with subtle character */}
+        {/* Logo */}
         <Link href="/">
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.03 }}
             className="flex items-center space-x-2 cursor-pointer"
           >
@@ -31,35 +31,38 @@ const Navbar = () => {
           </motion.div>
         </Link>
 
-        {/* Desktop Navigation - Clean but with your original options */}
+        {/* Desktop Navigation - Fixed nested <a> tags */}
         <div className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => (
-            <Link key={item.name} href={item.href}>
-              <motion.a 
-                whileHover={{ color: '#000000' }}
-                className="text-gray-500 font-normal text-sm uppercase tracking-wider transition-colors hover:text-gray-900"
-              >
-                {item.name}
-              </motion.a>
-            </Link>
+            <motion.div
+              key={item.name}
+              whileHover={{ color: "#000000" }}
+              className="text-gray-500 font-normal text-sm uppercase tracking-wider transition-colors hover:text-gray-900"
+            >
+              <Link href={item.href}>
+                <div className="block w-full h-full">{item.name}</div>
+              </Link>
+            </motion.div>
           ))}
         </div>
 
-        {/* Your original Shop Now button - but more refined */}
-        <div className="hidden md:block">
-          <Link href="/shop">
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-gray-900 text-white px-5 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-all"
-            >
-              Shop Now
-            </motion.button>
-          </Link>
-        </div>
+        {/* Shop Now button */}
+        {showLoginButton && (
+          <div className="hidden md:block">
+            <Link href="/login">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-gray-900 text-white px-5 py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-all"
+              >
+                Login
+              </motion.button>
+            </Link>
+          </div>
+        )}
 
-        {/* Mobile menu button - Minimal */}
-        <button 
+        {/* Mobile menu button */}
+        <button
           className="md:hidden p-1 text-gray-500 hover:text-gray-900"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
@@ -70,21 +73,21 @@ const Navbar = () => {
           )}
         </button>
 
-        {/* Mobile Menu - Includes all your original options */}
+        {/* Mobile Menu */}
         {isMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             className="md:hidden absolute top-16 left-0 right-0 bg-white py-3 px-5 space-y-3 border-t border-gray-100 shadow-sm"
           >
             {navItems.map((item) => (
-              <Link key={item.name} href={item.href}>
-                <a 
+              <Link href={item.href} key={item.name}>
+                <div
                   className="block py-2 text-gray-700 hover:text-black transition-colors text-sm uppercase"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </div>
               </Link>
             ))}
             <Link href="/shop">

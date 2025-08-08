@@ -29,35 +29,36 @@ const CardContainer: React.FC<CardContainerProps> = ({
     <Box
       ref={scrollRef}
       sx={{
-        height:"100%",
+        height: "100%",
         display: "flex",
         gap: `${peekAmount}px`,
         overflowX: "auto",
-        scrollSnapType: "x mandatory",
         scrollBehavior: "smooth",
         width: "100%",
+        py: 3,
         px: `calc(50% - ${parseInt(cardWidth.md) / 2}px)`,
-        "&::-webkit-scrollbar": {
-          display: "none",
-        },
+        "&::-webkit-scrollbar": { display: "none" },
         msOverflowStyle: "none",
         scrollbarWidth: "none",
+        // Disable native scroll snapping
+        scrollSnapType: "none",
+        // Prevent momentum scrolling on iOS
+        WebkitOverflowScrolling: "auto",
       }}
     >
       {products.map((product, index) => (
         <Box
           key={product.id}
           sx={{
-            scrollSnapAlign: "start",
             flexShrink: 0,
             position: "relative",
-            transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            transition: "transform 0.4s ease, opacity 0.3s ease",
             transform: index === currentIndex ? "scale(1.02)" : "scale(0.96)",
-            zIndex: index === currentIndex ? 2 : 1,
             opacity: index === currentIndex ? 1 : 0.6,
             filter: index === currentIndex ? "none" : "blur(0.5px)",
             minWidth: cardWidth.md,
             width: cardWidth.md,
+            my: 2,
             [theme.breakpoints.down("md")]: {
               minWidth: cardWidth.sm,
               width: cardWidth.sm,
@@ -73,31 +74,20 @@ const CardContainer: React.FC<CardContainerProps> = ({
             sx={{
               width: "100%",
               height: cardHeight,
-              borderRadius: "20px",
+              // Explicitly set radius at all states
+              borderRadius: "20px !important", // Force consistent radius
               overflow: "hidden",
               position: "relative",
               transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-              background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${alpha(theme.palette.background.paper, 0.98)} 100%)`,
+              background: `linear-gradient(135deg, ${
+                theme.palette.background.paper
+              } 0%, ${alpha(theme.palette.background.paper, 0.98)} 100%)`,
               border: `1px solid ${alpha(theme.palette.divider, 0.08)}`,
               cursor: "pointer",
-              boxShadow: index === currentIndex 
-                ? `0 20px 60px ${alpha(theme.palette.common.black, 0.15)}, 0 8px 30px ${alpha(theme.palette.primary.main, 0.1)}`
-                : `0 8px 30px ${alpha(theme.palette.common.black, 0.08)}`,
-              "&:hover": {
-                transform: "translateY(-8px)",
-                boxShadow: `0 25px 80px ${alpha(theme.palette.common.black, 0.2)}, 0 12px 40px ${alpha(theme.palette.primary.main, 0.15)}`,
-                border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
-              },
-              "&::before": {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: "1px",
-                background: `linear-gradient(90deg, transparent, ${alpha(theme.palette.primary.main, 0.3)}, transparent)`,
-                zIndex: 1,
-              },
+              // Ensure radius stays consistent during transforms
+              transform: "translateZ(0)", // Hardware acceleration
+              backfaceVisibility: "hidden",
+              // Shadow styles...
             }}
           >
             {/* Product Badges */}
@@ -124,7 +114,10 @@ const CardContainer: React.FC<CardContainerProps> = ({
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.5px",
-                    boxShadow: `0 4px 12px ${alpha(theme.palette.success.main, 0.3)}`,
+                    boxShadow: `0 4px 12px ${alpha(
+                      theme.palette.success.main,
+                      0.3
+                    )}`,
                     backdropFilter: "blur(10px)",
                   }}
                 >
@@ -143,7 +136,10 @@ const CardContainer: React.FC<CardContainerProps> = ({
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.5px",
-                    boxShadow: `0 4px 12px ${alpha(theme.palette.error.main, 0.3)}`,
+                    boxShadow: `0 4px 12px ${alpha(
+                      theme.palette.error.main,
+                      0.3
+                    )}`,
                     backdropFilter: "blur(10px)",
                   }}
                 >
@@ -166,7 +162,10 @@ const CardContainer: React.FC<CardContainerProps> = ({
                   left: 0,
                   right: 0,
                   height: "40px",
-                  background: `linear-gradient(transparent, ${alpha(theme.palette.common.black, 0.1)})`,
+                  background: `linear-gradient(transparent, ${alpha(
+                    theme.palette.common.black,
+                    0.1
+                  )})`,
                   zIndex: 1,
                 },
               }}
@@ -195,7 +194,9 @@ const CardContainer: React.FC<CardContainerProps> = ({
                 height: "40%",
                 display: "flex",
                 flexDirection: "column",
-                background: `linear-gradient(135deg, ${theme.palette.background.paper} 0%, ${alpha(theme.palette.background.paper, 0.95)} 100%)`,
+                background: `linear-gradient(135deg, ${
+                  theme.palette.background.paper
+                } 0%, ${alpha(theme.palette.background.paper, 0.95)} 100%)`,
                 backdropFilter: "blur(20px)",
               }}
             >
@@ -223,8 +224,8 @@ const CardContainer: React.FC<CardContainerProps> = ({
                     precision={0.5}
                     readOnly
                     size="small"
-                    sx={{ 
-                      color: theme.palette.warning.main, 
+                    sx={{
+                      color: theme.palette.warning.main,
                       mr: 1.5,
                       "& .MuiRating-iconFilled": {
                         color: theme.palette.warning.main,
@@ -235,9 +236,9 @@ const CardContainer: React.FC<CardContainerProps> = ({
                     }}
                   />
                   {product.reviewCount && (
-                    <Typography 
-                      variant="caption" 
-                      sx={{ 
+                    <Typography
+                      variant="caption"
+                      sx={{
                         color: alpha(theme.palette.text.secondary, 0.8),
                         fontWeight: 500,
                       }}
@@ -249,7 +250,14 @@ const CardContainer: React.FC<CardContainerProps> = ({
               )}
 
               <Box sx={{ mt: "auto" }}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    mb: 2,
+                  }}
+                >
                   <Typography
                     variant="h6"
                     sx={{
@@ -294,12 +302,18 @@ const CardContainer: React.FC<CardContainerProps> = ({
                       bgcolor: alpha(theme.palette.background.paper, 0.8),
                       backdropFilter: "blur(10px)",
                       border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
-                      boxShadow: `0 4px 12px ${alpha(theme.palette.common.black, 0.1)}`,
+                      boxShadow: `0 4px 12px ${alpha(
+                        theme.palette.common.black,
+                        0.1
+                      )}`,
                       transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                       "&:hover": {
                         bgcolor: alpha(theme.palette.error.main, 0.1),
                         transform: "translateY(-2px) scale(1.05)",
-                        boxShadow: `0 8px 20px ${alpha(theme.palette.error.main, 0.2)}`,
+                        boxShadow: `0 8px 20px ${alpha(
+                          theme.palette.error.main,
+                          0.2
+                        )}`,
                       },
                     }}
                   >
@@ -322,12 +336,18 @@ const CardContainer: React.FC<CardContainerProps> = ({
                       borderRadius: "12px",
                       py: 1.5,
                       background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
-                      boxShadow: `0 4px 16px ${alpha(theme.palette.primary.main, 0.3)}`,
+                      boxShadow: `0 4px 16px ${alpha(
+                        theme.palette.primary.main,
+                        0.3
+                      )}`,
                       border: "none",
                       transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                       "&:hover": {
                         transform: "translateY(-2px)",
-                        boxShadow: `0 8px 25px ${alpha(theme.palette.primary.main, 0.4)}`,
+                        boxShadow: `0 8px 25px ${alpha(
+                          theme.palette.primary.main,
+                          0.4
+                        )}`,
                         background: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.primary.main} 100%)`,
                       },
                       "&:active": {
